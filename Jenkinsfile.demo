@@ -56,7 +56,7 @@ node {
         url: 'http://10.0.1.85:8080',
         forceUpdate: false,
         
-        filename: 'marathon.json',
+        filename: 'cd-demo-app.json',
         id: 'jenkins-deployed-app',
         docker: "vishaldenge/cd-demo-app:${gitCommit()}".toString(),
         labels: [[name: 'lastChangedBy', value: "${gitEmail()}".toString()]]
