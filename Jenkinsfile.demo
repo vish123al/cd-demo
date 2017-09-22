@@ -39,9 +39,9 @@ node {
     withCredentials(
         [[
             $class: 'UsernamePasswordMultiBinding',
-            credentialsId: 'docker-hub-credentials',
-            passwordVariable: 'DOCKER_HUB_PASSWORD',
-            usernameVariable: 'DOCKER_HUB_USERNAME'
+            credentialsId: 'vishaldenge',
+            passwordVariable: 'PASSWORD',
+            usernameVariable: 'USERNAME'
         ]]
     ) {
         sh "docker login -u 'vishaldenge' -p 'v!sh@l123' -e 'vishaldenge1@gmail.com'"
