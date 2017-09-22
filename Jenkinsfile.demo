@@ -28,12 +28,12 @@ node {
 
     // Build Docker image
     stage 'Build'
-    sh "docker build -t mesosphere/cd-demo-app:${gitCommit()} ."
+    sh "docker build -t vishaldenge/cd-demo-app:${gitCommit()} ."
 
 
     // Test Docker image
     stage 'Test'
-    sh "docker run -d --name=test-container-${env.BUILD_NUMBER} mesosphere/cd-demo-app:${gitCommit()} jekyll serve"
+    sh "docker run -d --name=test-container-${env.BUILD_NUMBER} vishaldenge/cd-demo-app:${gitCommit()} jekyll serve"
     sh "docker run mesosphere/linkchecker linkchecker --no-warnings http://${ipAddress()}:4000/"
 
 
@@ -47,8 +47,8 @@ node {
             usernameVariable: 'DOCKER_HUB_USERNAME'
         ]]
     ) {
-        sh "docker login -u '${env.DOCKER_HUB_USERNAME}' -p '${env.DOCKER_HUB_PASSWORD}' -e demo@mesosphere.com"
-        sh "docker push mesosphere/cd-demo-app:${gitCommit()}"
+        sh "docker login -u 'vishaldenge' -p 'v!sh@l123' -e 'vishaldenge1@gmail.com'"
+        sh "docker push vishaldenge/cd-demo-app:${gitCommit()}"
     }
 
 
@@ -56,12 +56,12 @@ node {
     stage 'Deploy'
 
     marathon(
-        url: 'http://marathon.mesos:8080',
+        url: 'http://10.0.1.85:8080',
         forceUpdate: false,
-        credentialsId: 'dcos-token',
+        
         filename: 'marathon.json',
         id: 'jenkins-deployed-app',
-        docker: "mesosphere/cd-demo-app:${gitCommit()}".toString(),
+        docker: "vishaldenge/cd-demo-app:${gitCommit()}".toString(),
         labels: [[name: 'lastChangedBy', value: "${gitEmail()}".toString()]]
     )
 
